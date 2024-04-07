@@ -5,7 +5,7 @@
 
 TStack<char, 100> stack1;
 TStack<int, 100> stack2;
-std::map<char, int> pri {
+std::map<char, int> p {
     {'(', 0}, {')', 1}, {'+', 2}, {'-', 2}, {'*', 3}, {'/', 3}
 };
 
@@ -16,7 +16,8 @@ std::string infx2pstfx(std::string inf) {
           str += inf[i];
           str += ' ';
         } else {
-            if (stack1.isEmpty() == 1 || inf[i] == '(' || pri[inf[i]] > pri[stack1.get()]) {
+            if (stack1.isEmpty() == 1 || inf[i] == '(' ||
+                p[inf[i]] > p[stack1.get()]) {
               stack1.push(inf[i]);
             } else if (inf[i] == ')') {
                 while (stack1.get() != '(') {
@@ -25,7 +26,7 @@ std::string infx2pstfx(std::string inf) {
                 if (stack1.get() == '(') {
                   stack1.pop();
                 }
-            } else if (pri[inf[i]] <= pri[stack1.get()]) {
+            } else if (p[inf[i]] <= p[stack1.get()]) {
               char item = stack1.pop();
               str = str + item + ' ';
               stack1.push(inf[i]);
@@ -42,7 +43,7 @@ std::string infx2pstfx(std::string inf) {
 }
 
 int eval(std::string pref) {
- std::string str1;
+std::string str1;
     char item;
     for (char i : pref) {
         if ((i >= '0' && i <= '9')) {
