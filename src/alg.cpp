@@ -32,10 +32,10 @@ std::string infx2pstfx(std::string inf) {
             }
         }
     }
-    while(stack1.isEmpty()!=1){
+    while (stack1.isEmpty() != 1) {
         str = str + stack1.pop();
-        if(stack1.isEmpty()!=1){
-            str+=' ';
+        if (stack1.isEmpty() != 1) {
+            str += ' ';
         }
     }
     return str;
