@@ -5,18 +5,18 @@
 
 TStack<char, 100> stack1;
 TStack<int, 100> stack2;
-std::map<char, int> prioriti {
+std::map<char, int> pri {
     {'(', 0}, {')', 1}, {'+', 2}, {'-', 2}, {'*', 3}, {'/', 3}
 };
 
 std::string infx2pstfx(std::string inf) {
- std::string str = "";
-    for (int i = 0; i < inf.length(); i++ ) {
+    std::string str = "";
+    for (int i = 0; i < inf.length(); i++) {
         if (inf[i] >= '0' && inf[i] <= '9') {
           str += inf[i];
           str += ' ';
         } else {
-            if (stack1.isEmpty() == 1 || inf[i] == '(' || prioriti[inf[i]] > prioriti[stack1.get()] ) {
+            if (stack1.isEmpty() == 1 || inf[i] == '(' || pri[inf[i]] > pri[stack1.get()]) {
               stack1.push(inf[i]);
             } else if (inf[i] == ')') {
                 while (stack1.get() != '(') {
@@ -25,17 +25,20 @@ std::string infx2pstfx(std::string inf) {
                 if (stack1.get() == '(') {
                   stack1.pop();
                 }
-            }else if (prioriti[inf[i]] <= prioriti[stack1.get()]) {
+            } else if (pri[inf[i]] <= pri[stack1.get()]) {
               char item = stack1.pop();
               str = str + item + ' ';
               stack1.push(inf[i]);
             }
         }
     }
-    while (stack1.isEmpty() != 1) {
-      str = str + stack1.pop() + ' ';
+    while(stack1.isEmpty()!=1){
+        str = str + stack1.pop();
+        if(stack1.isEmpty()!=1){
+            str+=' ';
+        }
     }
-  return str;
+    return str;
 }
 
 int eval(std::string pref) {
