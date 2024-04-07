@@ -43,7 +43,7 @@ std::string infx2pstfx(std::string inf) {
 }
 
 int eval(std::string pref) {
-std::string str1;
+    std::string str1;
     char item;
     for (char i : pref) {
         if ((i >= '0' && i <= '9')) {
